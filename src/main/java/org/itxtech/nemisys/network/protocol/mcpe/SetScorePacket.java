@@ -59,8 +59,8 @@ public class SetScorePacket extends DataPacket {
             info.type(type);
 
             if (type == Type.ENTITY || type == Type.PLAYER) {
-                info.entityId = getVarLong();
-            } else {
+                info.entityId = getEntityUniqueId();
+            } else if(type == Type.FAKE ) {
                 info.name = getString();
             }
 
