@@ -52,16 +52,19 @@ public class SetScorePacket extends DataPacket {
             long id = getVarLong();
             String obj = getString();
             int score = getLInt();
-            Type type = Type.values()[getByte()];
 
             ScoreInfo info = new ScoreInfo(id, obj, score);
 
-            info.type(type);
+            if(action == Action.SET) {
+                Type type = Type.values()[getByte()];
 
-            if (type == Type.ENTITY || type == Type.PLAYER) {
-                info.entityId = getEntityUniqueId();
-            } else if(type == Type.FAKE ) {
-                info.name = getString();
+                info.type(type);
+
+                if(type == Type.ENTITY || type == Type.PLAYER) {
+                    info.entityId = getEntityUniqueId();
+                } else if(type == Type.FAKE) {
+                    info.name = getString();
+                }
             }
 
             infos.add(info);
