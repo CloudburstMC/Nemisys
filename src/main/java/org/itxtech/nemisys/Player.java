@@ -145,7 +145,7 @@ public class Player implements CommandSender {
 
                     this.getServer().getScheduler().scheduleAsyncTask(this.loginTask);
 
-                    return;
+                    break;
                 case ProtocolInfo.COMMAND_REQUEST_PACKET:
                     CommandRequestPacket commandRequestPacket = (CommandRequestPacket) packet;
 
@@ -191,6 +191,9 @@ public class Player implements CommandSender {
             switch (pk.pid()) {
                 case ProtocolInfo.ADD_PLAYER_PACKET:
                     entityId = ((AddPlayerPacket) pk).entityRuntimeId;
+                    break;
+                case ProtocolInfo.UPDATE_ATTRIBUTES_PACKET:
+                    entityId = ((UpdateAttributesPacket) pk).entityId;
                     break;
                 case ProtocolInfo.ADD_ENTITY_PACKET:
                     entityId = ((AddEntityPacket) pk).entityRuntimeId;

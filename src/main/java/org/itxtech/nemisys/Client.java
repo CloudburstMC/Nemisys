@@ -4,10 +4,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import lombok.Getter;
 import lombok.Setter;
-import org.itxtech.nemisys.event.client.ClientAuthEvent;
-import org.itxtech.nemisys.event.client.ClientConnectEvent;
-import org.itxtech.nemisys.event.client.ClientDisconnectEvent;
-import org.itxtech.nemisys.event.client.PluginMsgRecvEvent;
+import org.itxtech.nemisys.event.client.*;
 import org.itxtech.nemisys.network.SynapseInterface;
 import org.itxtech.nemisys.network.protocol.mcpe.BatchPacket;
 import org.itxtech.nemisys.network.protocol.mcpe.DataPacket;
@@ -90,8 +87,9 @@ public class Client {
     }
 
     public void handleDataPacket(SynapseDataPacket packet) {
-        /*this.server.getPluginManager().callEvent(ev = new ClientRecvPacketEvent(this, packet));
-        if(ev.isCancelled()){
+        /*ClientRecvPacketEvent evc = new ClientRecvPacketEvent(this, packet);
+        this.server.getPluginManager().callEvent(evc);
+        if(evc.isCancelled()){
 			return;
 		}*/
 
