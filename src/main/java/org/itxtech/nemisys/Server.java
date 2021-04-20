@@ -1,5 +1,6 @@
 package org.itxtech.nemisys;
 
+import com.google.common.hash.Hashing;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import lombok.Getter;
@@ -29,6 +30,7 @@ import org.itxtech.nemisys.synapse.SynapseEntry;
 import org.itxtech.nemisys.utils.*;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -118,7 +120,7 @@ public class Server {
                 put("server-port", 19132);
                 put("synapse-ip", "0.0.0.0");
                 put("synapse-port", 10305);
-                put("password", "1234567890123456"/* TODO MD5 Password*/);
+                put("password", "1234567890123456");
                 put("lang", "eng");
                 put("async-workers", "auto");
                 put("enable-profiling", false);
@@ -285,7 +287,7 @@ public class Server {
 
     public boolean comparePassword(String pass) {
         String truePass = this.getPropertyString("password", "1234567890123456");
-        return (truePass.equals(pass));
+        return Hashing.md5().hashBytes(truePass.getBytes(StandardCharsets.UTF_8)).toString().equals(pass);
     }
 
     public void enablePlugins() {

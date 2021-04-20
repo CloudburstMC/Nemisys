@@ -1,5 +1,6 @@
 package org.itxtech.nemisys.synapse;
 
+import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 import org.itxtech.nemisys.Nemisys;
 import org.itxtech.nemisys.Player;
@@ -14,6 +15,7 @@ import org.itxtech.nemisys.utils.ClientData;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -165,7 +167,7 @@ public class SynapseEntry {
         this.getSynapse().getLogger().notice("Connecting " + this.getHash());
         this.verified = false;
         ConnectPacket pk = new ConnectPacket();
-        pk.password = this.password;
+        pk.password = Hashing.md5().hashBytes(this.password.getBytes(StandardCharsets.UTF_8)).toString();
         pk.isMainServer = this.isMainServer();
         pk.description = this.serverDescription;
         pk.maxPlayers = this.getSynapse().getServer().getMaxPlayers();
